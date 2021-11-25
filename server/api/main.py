@@ -4,17 +4,20 @@ from flask_restful import Api, Resource
 app = Flask(__name__)
 api = Api(app)
 
-books = {"Twilight": {"Author": "Stephenie Meyer",
-                      "Genre": "Romance", "Pages": 384},
-         "Our Final Invention": {"Author": "James Barrat", "Genre": "Technology", "Pages": 336}}
+books = [{"Title": "Twilight", "Author": "Stephenie Meyer",
+          "Genre": "Romance", "Pages": 384},
+         {"Title": "Our Final Invention", "Author": "James Barrat", "Genre": "Technology", "Pages": 336}]
 
 
-class operations(Resource):
+class Book(Resource):
     def get(self):
         return{"data": "Hello There"}
 
+    def put(self):
+        return("")
 
-api.add_resource(operations, "/")
+
+api.add_resource(Book, "/")
 
 
 if __name__ == "__main__":
