@@ -1,10 +1,7 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState, useEffect } from "react";
 
-import { header } from "./components/header/header.jsx";
-
-function App() {
-  return <header />;
-}
+const App = () => {
+  return <div></div>;
+};
 
 export default App;
