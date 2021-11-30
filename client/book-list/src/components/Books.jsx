@@ -1,5 +1,6 @@
 import React from "react";
-import { Header, List, Rating } from "semantic-ui-react";
+import { Header, List } from "semantic-ui-react";
+import Rating from "@mui/material/Rating";
 
 const Books = ({ books }) => {
   return (
@@ -13,7 +14,7 @@ const Books = ({ books }) => {
             <p className="book_originally_published">
               {book.originally_published}
             </p>
-            <p className="book_rating">{book.rating}/5</p>
+            <Rating value={book.rating} name="read-only" readOnly />
           </List.Item>
         );
       })}

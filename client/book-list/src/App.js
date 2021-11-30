@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Container } from "semantic-ui-react";
 import "./App.css";
+import BookForm from "./components/BookForm";
 import Books from "./components/Books";
 
 const App = () => {
@@ -13,11 +15,12 @@ const App = () => {
     );
   }, []);
 
-  console.log(books);
-
   return (
     <div className="App">
-      <Books books={books} />
+      <Container>
+        <BookForm />
+        <Books books={books} />
+      </Container>
     </div>
   );
 };
