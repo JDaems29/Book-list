@@ -20,9 +20,10 @@ class Books(db.Model):
     author = db.Column(db.String(80))
     genre = db.Column(db.String(80))
     originally_published = db.Column(db.Integer())
+    rating = db.Column(db.Integer())
 
     def __repr__(self):
-        return f"{self.name} - {self.author} - {self.genre} - {self.originally_published}"
+        return f"{self.name} - {self.author} - {self.genre} - {self.originally_published} - {self.rating}"
 
 
 @app.route("/")
@@ -31,15 +32,15 @@ def index():
 
 
 @app.route("/books")
-def get_drinks():
+def get_books():
     books = Books.query.all()
 
     output = []
 
     for book in books:
-        drink_data = {"name": book.name, "author": book.author,
-                      "genre": book.genre, "originally_published": book.originally_published}
-        output.append(drink_data)
+        book_data = {"name": book.name, "author": book.author,
+                     "genre": book.genre, "originally_published": book.originally_published, "rating": book.rating}
+        output.append(book_data)
 
     return {"Books": output}
 
@@ -48,13 +49,13 @@ def get_drinks():
 def get_book(id):
     book = Books.query.get_or_404(id)
     return {"name": book.name, "author": book.author,
-            "genre": book.genre, "originally_published": book.originally_published}
+            "genre": book.genre, "originally_published": book.originally_published, "rating": book.rating}
 
 
 @app.route("/books", methods=["POST"])
 def add_book():
     book = Books(name=request.json["name"], author=request.json["author"],
-                 genre=request.json["genre"], originally_published=request.json["originally_published"])
+                 genre=request.json["genre"], originally_published=request.json["originally_published"], rating=request.json["rating"])
     db.session.add(book)
     db.session.commit()
     return {'id': book.id}
