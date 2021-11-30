@@ -5,6 +5,7 @@ from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql.expression import false, true
 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -19,11 +20,10 @@ class Books(db.Model):
     name = db.Column(db.String(80), unique=true, nullable=false)
     author = db.Column(db.String(80))
     genre = db.Column(db.String(80))
-    originally_published = db.Column(db.Integer())
-    rating = db.Column(db.Integer())
+    rating = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"{self.name} - {self.author} - {self.genre} - {self.originally_published} - {self.rating}"
+        return f"{self.name} - {self.author} - {self.genre} - {self.rating}"
 
 
 @app.route("/")
@@ -39,7 +39,7 @@ def get_books():
 
     for book in books:
         book_data = {"name": book.name, "author": book.author,
-                     "genre": book.genre, "originally_published": book.originally_published, "rating": book.rating}
+                     "genre": book.genre, "rating": book.rating}
         output.append(book_data)
 
     return {"Books": output}
@@ -49,16 +49,20 @@ def get_books():
 def get_book(id):
     book = Books.query.get_or_404(id)
     return {"name": book.name, "author": book.author,
-            "genre": book.genre, "originally_published": book.originally_published, "rating": book.rating}
+            "genre": book.genre, "rating": book.rating}
 
 
-@app.route("/books", methods=["POST"])
+@app.route("/add_book", methods=["POST"])
 def add_book():
-    book = Books(name=request.json["name"], author=request.json["author"],
-                 genre=request.json["genre"], originally_published=request.json["originally_published"], rating=request.json["rating"])
-    db.session.add(book)
+    book_data = request.get_json()
+
+    new_book = Books(name=book_data["name"], author=book_data["author"],
+                     genre=book_data["genre"], rating=book_data["rating"])
+
+    db.session.add(new_book)
     db.session.commit()
-    return {'id': book.id}
+
+    return 'done', 201
 
 
 if __name__ == "__main__":
