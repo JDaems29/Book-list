@@ -1,11 +1,15 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
+import { AppBar, Container } from "@mui/material";
 
 const Header = () => {
   return (
-    <Menu secondary>
-      <Menu.Item name="Home" active={activeItem === "home"} />
-    </Menu>
+    <Container maxWidth="lg">
+      <AppBar
+        className={classes.appBar}
+        position="static"
+        color="inherit"
+      ></AppBar>
+    </Container>
   );
 };
 
