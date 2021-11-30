@@ -4,11 +4,7 @@ import { AppBar, Container } from "@mui/material";
 const Header = () => {
   return (
     <Container maxWidth="lg">
-      <AppBar
-        className={classes.appBar}
-        position="static"
-        color="inherit"
-      ></AppBar>
+      <AppBar position="static" color="inherit"></AppBar>
     </Container>
   );
 };
